@@ -27,5 +27,4 @@
             <artifactId>sales-api</artifactId>
         </dependency>
     </dependencies>
-
 </project>

@@ -1,5 +1,7 @@
 package org.marcofp.sales.boot.config;
 
+import java.util.List;
+
 import org.marcofp.sales.controller.SalesApiController;
 import org.marcofp.sales.domain.repository.GoodRepository;
 import org.marcofp.sales.domain.usecase.CalculateShoppingBasketUseCase;
@@ -25,7 +27,7 @@ import org.marcofp.sales.usecase.PrintShoppingBasketUseCaseImpl;
  * @author <a href="mailto:marcofp@gmail.com">Marco Fuentelsaz</a>
  * @since 1.0.0
  */
-public class ApplicationConfigurationImpl implements ApplicationConfiguration {
+public class InMemoryApplicationConfigurationImpl implements ApplicationConfiguration {
 
     /**
      * The controller.
@@ -35,9 +37,9 @@ public class ApplicationConfigurationImpl implements ApplicationConfiguration {
     /**
      * The constructor.
      */
-    public ApplicationConfigurationImpl() {
+    public InMemoryApplicationConfigurationImpl(List<List<String>> inMemoryData) {
         InMemoryGoodMapper mapper = new InMemoryGoodMapperImpl();
-        final GoodRepository inMemoryGoodRepository = new InMemoryGoodRepository(mapper);
+        final GoodRepository inMemoryGoodRepository = new InMemoryGoodRepository(mapper, inMemoryData);
 
         final CalculateShoppingBasketUseCase calculateShoppingBasketUseCase = new CalculateShoppingBasketUseCaseImpl();
         final PrintShoppingBasketUseCase printShoppingBasketUseCase = new PrintShoppingBasketUseCaseImpl();

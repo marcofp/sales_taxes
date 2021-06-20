@@ -2,13 +2,12 @@ package org.marcofp.sales.boot;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import org.marcofp.sales.boot.config.ApplicationConfiguration;
-import org.marcofp.sales.boot.config.ApplicationConfigurationImpl;
+import org.marcofp.sales.boot.config.InMemoryApplicationConfigurationImpl;
 import org.marcofp.sales.dto.GoodDto;
 import org.marcofp.sales.dto.ItemBasketDto;
 import org.marcofp.sales.dto.ShoppingBasketDto;
@@ -26,21 +25,29 @@ public class Application {
 
     public static void main(String[] args) {
 
-        ApplicationConfiguration applicationConfiguration = new ApplicationConfigurationImpl();
-        final SalesApi controller = applicationConfiguration.getSalesAPI();
-
-        List<List<String>> data = null;
+        List<List<String>> repositoryData = null;
         try {
-            data = readData(args[0]);
+            repositoryData = readData(args[0]);
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-
         }
+
+        ApplicationConfiguration applicationConfiguration = new InMemoryApplicationConfigurationImpl(repositoryData);
+        final SalesApi controller = applicationConfiguration.getSalesAPI();
+
+        List<List<String>> imputData = null;
+        try {
+            imputData = readData(args[1]);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+
         List<ItemBasketDto> items = new ArrayList<>();
-        data.forEach(dataArray -> {
+        imputData.forEach(dataArray -> {
             if (dataArray.size() != 2) {
-                System.err.println("The input file contains wrong data");
+                System.err.println("The input file contains wrong imputData");
                 System.exit(1);
             }
             final GoodDto goodById = controller.findGoodByName(dataArray.get(0).trim());
@@ -71,15 +78,8 @@ public class Application {
     }
 
     private static List<List<String>> readData(String fileName) throws IOException {
-        final URL resource = Application.class.getResource("/samples/" + fileName);
-        if (resource == null) {
-            System.err
-                .println("The provided file " + fileName + " does not exists");
-            System.exit(1);
-        }
         List<List<String>> records = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(
-            resource.getFile()))) {
+        try (Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }

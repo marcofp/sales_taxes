@@ -1,0 +1,8 @@
+book, 12.49, BOOKS, false
+music CD, 14.99, MUSIC, false
+chocolate bar, 0.85, FOODS, false
+imported box of chocolates, 10.00, FOODS, true
+imported bottle of perfume, 27.99,COSMETICS_PERFUMES_AND_CLEANING, true
+bottle of perfume, 18.99, COSMETICS_PERFUMES_AND_CLEANING, false
+packet of headache pills, 9.75, MEDICAL, false
+box of imported chocolates, 11.25, MEDICAL, true

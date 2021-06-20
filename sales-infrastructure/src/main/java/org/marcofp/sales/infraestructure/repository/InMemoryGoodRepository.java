@@ -49,36 +49,37 @@ public class InMemoryGoodRepository implements GoodRepository {
      * The constructor.
      *
      * @param mapper the mapper
+     * @param initialData the initial data
      */
-    public InMemoryGoodRepository(final InMemoryGoodMapper mapper) {
+    public InMemoryGoodRepository(final InMemoryGoodMapper mapper, final List<List<String>> initialData) {
         this.mapper = mapper;
         this.dataMap = new ConcurrentHashMap<>();
-        InMemoryGoodEntity book = this.generateGood(BOOK, new BigDecimal("12.49"), GoodType.BOOKS, false);
-        this.dataMap.put(BOOK, book);
-        InMemoryGoodEntity musicCD = this.generateGood(MUSIC_CD, new BigDecimal("14.99"), GoodType.MUSIC, false);
-        this.dataMap.put(MUSIC_CD, musicCD);
-        InMemoryGoodEntity chocolateBar = this
-            .generateGood(CHOCOLATE_BAR, new BigDecimal("0.85"), GoodType.FOODS, false);
-        this.dataMap.put(CHOCOLATE_BAR, chocolateBar);
-        InMemoryGoodEntity importedBoxOfChocolates = this
-            .generateGood(IMPORTED_BOX_OF_CHOCOLATES, new BigDecimal("10.00"), GoodType.FOODS, true);
-        this.dataMap.put(IMPORTED_BOX_OF_CHOCOLATES, importedBoxOfChocolates);
-        InMemoryGoodEntity importedBottleOfPerfume = this
-            .generateGood(IMPORTED_BOTTLE_OF_PERFUME, new BigDecimal("47.50"),
-                GoodType.COSMETICS_PERFUMES_AND_CLEANING, true);
-        this.dataMap.put(IMPORTED_BOTTLE_OF_PERFUME, importedBottleOfPerfume);
-        InMemoryGoodEntity bottleOfPerfume = this
-            .generateGood(BOTTLE_OF_PERFUME, new BigDecimal("18.99"), GoodType.COSMETICS_PERFUMES_AND_CLEANING,
-                false);
-        this.dataMap.put(BOTTLE_OF_PERFUME, bottleOfPerfume);
-        InMemoryGoodEntity packetOfHeadachePills = this
-            .generateGood(PACKET_OF_HEADACHE_PILLS, new BigDecimal("9.75"), GoodType.MEDICAL, false);
-        this.dataMap.put(PACKET_OF_HEADACHE_PILLS, packetOfHeadachePills);
-        InMemoryGoodEntity boxOfImportedChocolates = this
-            .generateGood(BOX_OF_IMPORTED_CHOCOLATES, new BigDecimal("11.25"), GoodType.MEDICAL, true);
-        this.dataMap.put(BOX_OF_IMPORTED_CHOCOLATES, boxOfImportedChocolates);
+        initialize(initialData);
+//        InMemoryGoodEntity book = this.generateGood(BOOK, new BigDecimal("12.49"), GoodType.BOOKS, false);
+//        this.dataMap.put(BOOK, book);
+//        InMemoryGoodEntity musicCD = this.generateGood(MUSIC_CD, new BigDecimal("14.99"), GoodType.MUSIC, false);
+//        this.dataMap.put(MUSIC_CD, musicCD);
+//        InMemoryGoodEntity chocolateBar = this
+//            .generateGood(CHOCOLATE_BAR, new BigDecimal("0.85"), GoodType.FOODS, false);
+//        this.dataMap.put(CHOCOLATE_BAR, chocolateBar);
+//        InMemoryGoodEntity importedBoxOfChocolates = this
+//            .generateGood(IMPORTED_BOX_OF_CHOCOLATES, new BigDecimal("10.00"), GoodType.FOODS, true);
+//        this.dataMap.put(IMPORTED_BOX_OF_CHOCOLATES, importedBoxOfChocolates);
+//        InMemoryGoodEntity importedBottleOfPerfume = this
+//            .generateGood(IMPORTED_BOTTLE_OF_PERFUME, new BigDecimal("47.50"),
+//                GoodType.COSMETICS_PERFUMES_AND_CLEANING, true);
+//        this.dataMap.put(IMPORTED_BOTTLE_OF_PERFUME, importedBottleOfPerfume);
+//        InMemoryGoodEntity bottleOfPerfume = this
+//            .generateGood(BOTTLE_OF_PERFUME, new BigDecimal("18.99"), GoodType.COSMETICS_PERFUMES_AND_CLEANING,
+//                false);
+//        this.dataMap.put(BOTTLE_OF_PERFUME, bottleOfPerfume);
+//        InMemoryGoodEntity packetOfHeadachePills = this
+//            .generateGood(PACKET_OF_HEADACHE_PILLS, new BigDecimal("9.75"), GoodType.MEDICAL, false);
+//        this.dataMap.put(PACKET_OF_HEADACHE_PILLS, packetOfHeadachePills);
+//        InMemoryGoodEntity boxOfImportedChocolates = this
+//            .generateGood(BOX_OF_IMPORTED_CHOCOLATES, new BigDecimal("11.25"), GoodType.MEDICAL, true);
+//        this.dataMap.put(BOX_OF_IMPORTED_CHOCOLATES, boxOfImportedChocolates);
     }
-
 
     /**
      * {@inheritDoc}
@@ -158,6 +159,24 @@ public class InMemoryGoodRepository implements GoodRepository {
     @Override
     public Long count() {
         return (long) this.dataMap.size();
+    }
+
+    /**
+     * Initializes the in memory repository.
+     *
+     * @param initData The initial data
+     */
+    private void initialize(List<List<String>> initData) {
+        initData.forEach(data -> {
+            final String name = data.get(0).trim();
+            final BigDecimal price = new BigDecimal(data.get(1).trim());
+            final GoodType type = GoodType.valueOf(data.get(2).trim());
+            final boolean imported = Boolean.parseBoolean(data.get(3).trim());
+            InMemoryGoodEntity entity = this
+                .generateGood(name, price,
+                    type, imported);
+            this.dataMap.put(name, entity);
+        });
     }
 
     private InMemoryGoodEntity generateGood(final String name, final BigDecimal price, final GoodType type,
