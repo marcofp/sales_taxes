@@ -39,7 +39,7 @@ To run unit tests use:
 
 For example: 
 
-java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar sample-data/repos/init-repository-1.csv sample-data/inputs/imput-1.csv```
+```java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar sample-data/repos/init-repository-1.csv sample-data/inputs/imput-1.csv```
 
 Expected output:
 
