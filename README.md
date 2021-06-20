@@ -33,7 +33,7 @@ To run unit tests use:
 
 - ```<data-memory-repository-path>```: path to the csv file that contains the data repository in memory. For each row the format is ```item-name, item-price, item-type, is-imported```. For example: book, 12.49, BOOKS, false
 
-- ```<input-data-path>```: path to the csv file that contains the input data. For each row the format is ```<item-name>, <item-quantity>```. For example: book, 1
+- ```<input-data-path>```: path to the csv file that contains the input data. For each row the format is ```item-name, item-quantity```. For example: book, 1
 
 - ```<item-type>```: BOOKS -> Books, FOODS -> Foods, MEDICAL -> Medical, MUSIC -> Music,  COSMETICS_PERFUMES_AND_CLEANING -> Cosmetics, Perfumes & Cleaning Substances, OTHERS -> Others
 
