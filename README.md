@@ -44,9 +44,13 @@ For example:
 Expected output:
 
 1 book at 12.49
+
 1 music CD at 16.49
+
 1 chocolate bar at 0.85
+
 Sales taxes: 1.50
+
 Total: 29.83
 
 ```java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar sample-data/repos/init-repository-2.csv sample-data/inputs/imput-2.csv```
