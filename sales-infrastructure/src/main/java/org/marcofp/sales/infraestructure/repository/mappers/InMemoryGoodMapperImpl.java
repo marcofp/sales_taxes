@@ -14,6 +14,9 @@ import org.marcofp.sales.infraestructure.repository.InMemoryGoodEntity;
  */
 public class InMemoryGoodMapperImpl implements InMemoryGoodMapper {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Good toDomainEntity(InMemoryGoodEntity inMemoryGoodEntity) {
         Good good = new Good();
@@ -24,11 +27,17 @@ public class InMemoryGoodMapperImpl implements InMemoryGoodMapper {
         return good;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Good> toDomainEntities(List<InMemoryGoodEntity> goods) {
         return goods.stream().map(this::toDomainEntity).collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InMemoryGoodEntity fromDomainEntity(Good domainGood) {
         InMemoryGoodEntity good = new InMemoryGoodEntity(domainGood.getName());
