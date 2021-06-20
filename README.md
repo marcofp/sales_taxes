@@ -58,8 +58,11 @@ Total: 29.83
 Expected output:
 
 1 imported box of chocolates at 10.50
+
 1 imported bottle of perfume at 54.65
+
 Sales taxes: 7.65
+
 Total: 65.15
 
 ```java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar sample-data/repos/init-repository-3.csv sample-data/inputs/imput-3.csv```
@@ -67,10 +70,15 @@ Total: 65.15
 Expected output:
 
 1 imported bottle of perfume at 32.19
+
 1 bottle of perfume at 20.89
+
 1 packet of headache pills at 9.75
+
 1 box of imported chocolates at 11.85
+
 Sales taxes: 6.70
+
 Total: 74.68
 
 ## Built With
