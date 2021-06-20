@@ -1,14 +1,15 @@
 package org.marcofp.sales.infraestructure.repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.marcofp.sales.domain.entity.Good;
 import org.marcofp.sales.domain.entity.GoodType;
 import org.marcofp.sales.domain.repository.GoodRepository;
+import org.marcofp.sales.infraestructure.repository.mappers.InMemoryGoodMapper;
 
 /**
  * <p>
@@ -25,10 +26,14 @@ import org.marcofp.sales.domain.repository.GoodRepository;
 
 public class InMemoryGoodRepository implements GoodRepository {
 
-    /**
-     * The key generator.
-     */
-    private final AtomicInteger keyGenerator;
+    public static final String BOOK = "book";
+    public static final String MUSIC_CD = "music CD";
+    public static final String CHOCOLATE_BAR = "chocolate bar";
+    public static final String IMPORTED_BOX_OF_CHOCOLATES = "imported box of chocolates";
+    public static final String IMPORTED_BOTTLE_OF_PERFUME = "imported bottle of perfume";
+    public static final String BOTTLE_OF_PERFUME = "bottle of perfume";
+    public static final String PACKET_OF_HEADACHE_PILLS = "packet of headache pills";
+    public static final String BOX_OF_IMPORTED_CHOCOLATES = "box of imported chocolates";
 
     /**
      * In memory data map.
@@ -47,8 +52,31 @@ public class InMemoryGoodRepository implements GoodRepository {
      */
     public InMemoryGoodRepository(final InMemoryGoodMapper mapper) {
         this.mapper = mapper;
-        this.keyGenerator = new AtomicInteger(1);
         this.dataMap = new ConcurrentHashMap<>();
+        InMemoryGoodEntity book = this.generateGood(BOOK, new BigDecimal("12.49"), GoodType.BOOKS, false);
+        this.dataMap.put(BOOK, book);
+        InMemoryGoodEntity musicCD = this.generateGood(MUSIC_CD, new BigDecimal("14.99"), GoodType.MUSIC, false);
+        this.dataMap.put(MUSIC_CD, musicCD);
+        InMemoryGoodEntity chocolateBar = this
+            .generateGood(CHOCOLATE_BAR, new BigDecimal("0.85"), GoodType.FOODS, false);
+        this.dataMap.put(CHOCOLATE_BAR, chocolateBar);
+        InMemoryGoodEntity importedBoxOfChocolates = this
+            .generateGood(IMPORTED_BOX_OF_CHOCOLATES, new BigDecimal("10.00"), GoodType.FOODS, true);
+        this.dataMap.put(IMPORTED_BOX_OF_CHOCOLATES, importedBoxOfChocolates);
+        InMemoryGoodEntity importedBottleOfPerfume = this
+            .generateGood(IMPORTED_BOTTLE_OF_PERFUME, new BigDecimal("47.50"),
+                GoodType.COSMETICS_PERFUMES_AND_CLEANING, true);
+        this.dataMap.put(IMPORTED_BOTTLE_OF_PERFUME, importedBottleOfPerfume);
+        InMemoryGoodEntity bottleOfPerfume = this
+            .generateGood(BOTTLE_OF_PERFUME, new BigDecimal("18.99"), GoodType.COSMETICS_PERFUMES_AND_CLEANING,
+                false);
+        this.dataMap.put(BOTTLE_OF_PERFUME, bottleOfPerfume);
+        InMemoryGoodEntity packetOfHeadachePills = this
+            .generateGood(PACKET_OF_HEADACHE_PILLS, new BigDecimal("9.75"), GoodType.MEDICAL, false);
+        this.dataMap.put(PACKET_OF_HEADACHE_PILLS, packetOfHeadachePills);
+        InMemoryGoodEntity boxOfImportedChocolates = this
+            .generateGood(BOX_OF_IMPORTED_CHOCOLATES, new BigDecimal("11.25"), GoodType.MEDICAL, true);
+        this.dataMap.put(BOX_OF_IMPORTED_CHOCOLATES, boxOfImportedChocolates);
     }
 
 
@@ -82,25 +110,23 @@ public class InMemoryGoodRepository implements GoodRepository {
      * {@inheritDoc}
      */
     @Override
-    public boolean deleteGood(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("The provided id is null");
+    public boolean deleteGood(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("The provided name is null");
         }
-        return this.dataMap.remove(id) != null;
+        return this.dataMap.remove(name) != null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Good createGood(final String name, final Double price, final GoodType type, final Boolean imported) {
-        final int nextId = this.keyGenerator.getAndIncrement();
-        final InMemoryGoodEntity inMemoryGood = new InMemoryGoodEntity(Integer.toString(nextId));
+    public Good createGood(final String name, final BigDecimal price, final GoodType type, final Boolean imported) {
+        final InMemoryGoodEntity inMemoryGood = new InMemoryGoodEntity(name);
         inMemoryGood.setImported(imported);
-        inMemoryGood.setName(name);
         inMemoryGood.setPrice(price);
         inMemoryGood.setType(type);
-        this.dataMap.put(inMemoryGood.getId(), inMemoryGood);
+        this.dataMap.put(name, inMemoryGood);
         return mapper.toDomainEntity(inMemoryGood);
     }
 
@@ -112,18 +138,18 @@ public class InMemoryGoodRepository implements GoodRepository {
         if (good == null) {
             throw new IllegalArgumentException("The provided good is null");
         }
-        return this.dataMap.put(good.getId(), this.mapper.fromDomainEntity(good)) != null;
+        return this.dataMap.put(good.getName(), this.mapper.fromDomainEntity(good)) != null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Good findGood(String id) {
-        if (id == null) {
+    public Good findGood(String name) {
+        if (name == null || !dataMap.containsKey(name)) {
             return null;
         }
-        return this.mapper.toDomainEntity(this.dataMap.get(id));
+        return this.mapper.toDomainEntity(this.dataMap.get(name));
     }
 
     /**
@@ -132,6 +158,15 @@ public class InMemoryGoodRepository implements GoodRepository {
     @Override
     public Long count() {
         return (long) this.dataMap.size();
+    }
+
+    private InMemoryGoodEntity generateGood(final String name, final BigDecimal price, final GoodType type,
+        final Boolean imported) {
+        final InMemoryGoodEntity inMemoryGood = new InMemoryGoodEntity(name);
+        inMemoryGood.setImported(imported);
+        inMemoryGood.setPrice(price);
+        inMemoryGood.setType(type);
+        return inMemoryGood;
     }
 
 }

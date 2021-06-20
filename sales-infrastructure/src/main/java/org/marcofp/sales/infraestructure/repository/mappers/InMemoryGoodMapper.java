@@ -1,8 +1,9 @@
-package org.marcofp.sales.infraestructure.repository;
+package org.marcofp.sales.infraestructure.repository.mappers;
 
 import java.util.List;
 
 import org.marcofp.sales.domain.entity.Good;
+import org.marcofp.sales.infraestructure.repository.InMemoryGoodEntity;
 
 /**
  * Mapper for {@link InMemoryGoodEntity}.

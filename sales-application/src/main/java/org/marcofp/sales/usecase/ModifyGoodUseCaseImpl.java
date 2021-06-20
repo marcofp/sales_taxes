@@ -12,7 +12,6 @@ import org.marcofp.sales.domain.usecase.ModifyGoodUseCase;
  */
 public class ModifyGoodUseCaseImpl implements ModifyGoodUseCase {
 
-
     /**
      * The good repository.
      */

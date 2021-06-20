@@ -1,9 +1,10 @@
-package org.marcofp.sales.infraestructure.repository;
+package org.marcofp.sales.infraestructure.repository.mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.marcofp.sales.domain.entity.Good;
+import org.marcofp.sales.infraestructure.repository.InMemoryGoodEntity;
 
 /**
  * Implements the interface {@link InMemoryGoodMapper}.
@@ -16,10 +17,10 @@ public class InMemoryGoodMapperImpl implements InMemoryGoodMapper {
     @Override
     public Good toDomainEntity(InMemoryGoodEntity inMemoryGoodEntity) {
         Good good = new Good();
-        good.setId(inMemoryGoodEntity.getId());
         good.setImported(inMemoryGoodEntity.isImported());
         good.setPrice(inMemoryGoodEntity.getPrice());
         good.setName(inMemoryGoodEntity.getName());
+        good.setType(inMemoryGoodEntity.getType());
         return good;
     }
 
@@ -30,10 +31,9 @@ public class InMemoryGoodMapperImpl implements InMemoryGoodMapper {
 
     @Override
     public InMemoryGoodEntity fromDomainEntity(Good domainGood) {
-        InMemoryGoodEntity good = new InMemoryGoodEntity(domainGood.getId());
+        InMemoryGoodEntity good = new InMemoryGoodEntity(domainGood.getName());
         good.setImported(domainGood.isImported());
         good.setPrice(domainGood.getPrice());
-        good.setName(domainGood.getName());
         return good;
     }
 }

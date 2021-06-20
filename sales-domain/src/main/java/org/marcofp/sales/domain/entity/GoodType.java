@@ -9,8 +9,10 @@ package org.marcofp.sales.domain.entity;
 public enum GoodType {
 
     BOOKS("Books", true),
-    FOOD("Foods", true),
+    FOODS("Foods", true),
     MEDICAL("Medical", true),
+    MUSIC("Music", false),
+    COSMETICS_PERFUMES_AND_CLEANING("Cosmetics, Perfumes & Cleaning Substances", false),
     OTHERS("Others", false);
 
     /**

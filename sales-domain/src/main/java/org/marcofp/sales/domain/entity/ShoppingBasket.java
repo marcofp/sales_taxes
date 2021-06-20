@@ -1,6 +1,7 @@
 package org.marcofp.sales.domain.entity;
 
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * The shopping basket.
@@ -14,39 +15,39 @@ public class ShoppingBasket {
     /**
      * Items associated with the basket.
      */
-    private Set<ItemBasket> items;
+    private List<ItemBasket> items;
 
     /**
      * The sales taxes.
      */
-    private double totalSalesTaxes;
+    private BigDecimal totalSalesTaxes;
 
     /**
      * The total price.
      */
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
-    public Set<ItemBasket> getItems() {
+    public List<ItemBasket> getItems() {
         return items;
     }
 
-    public void setItems(Set<ItemBasket> items) {
+    public void setItems(List<ItemBasket> items) {
         this.items = items;
     }
 
-    public double getTotalSalesTaxes() {
+    public BigDecimal getTotalSalesTaxes() {
         return totalSalesTaxes;
     }
 
-    public void setTotalSalesTaxes(double totalSalesTaxes) {
+    public void setTotalSalesTaxes(BigDecimal totalSalesTaxes) {
         this.totalSalesTaxes = totalSalesTaxes;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

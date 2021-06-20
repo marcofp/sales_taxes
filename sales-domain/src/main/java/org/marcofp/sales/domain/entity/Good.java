@@ -1,5 +1,7 @@
 package org.marcofp.sales.domain.entity;
 
+import java.math.BigDecimal;
+
 /**
  * The type good.
  *
@@ -9,11 +11,6 @@ package org.marcofp.sales.domain.entity;
 public class Good {
 
     /**
-     * The good id.
-     */
-    private String id;
-
-    /**
      * The good name.
      */
     private String name;
@@ -21,7 +18,7 @@ public class Good {
     /**
      * The good price.
      */
-    private Double price;
+    private BigDecimal price;
 
     /**
      * The good type.
@@ -31,15 +28,7 @@ public class Good {
     /**
      * Indicates if the good is imported.
      */
-    private Boolean imported;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private boolean imported;
 
     /**
      * Provides the good name.
@@ -61,7 +50,7 @@ public class Good {
      * Provides the good price.
      * @return the good price
      */
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -69,7 +58,7 @@ public class Good {
      * Sets the good price.
      * @param price the good price
      */
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -93,7 +82,7 @@ public class Good {
      * Indicates whether the good is imported.
      * @return is imported
      */
-    public Boolean isImported() {
+    public boolean isImported() {
         return imported;
     }
 
@@ -101,7 +90,7 @@ public class Good {
      * Sets if the good is imported.
      * @param imported good is imported
      */
-    public void setImported(Boolean imported) {
+    public void setImported(boolean imported) {
         this.imported = imported;
     }
 }

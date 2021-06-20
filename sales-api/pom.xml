@@ -9,9 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sales-domain</artifactId>
-
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>The sales domain module</description>
+    <description>The services definition module</description>
+    <artifactId>sales-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sales-domain</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

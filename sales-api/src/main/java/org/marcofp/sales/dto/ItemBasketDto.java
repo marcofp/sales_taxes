@@ -1,19 +1,19 @@
-package org.marcofp.sales.domain.entity;
-
-import java.math.BigDecimal;
+package org.marcofp.sales.dto;
 
 /**
- * Represents a item of the basket.
+ * Represents a item of the basket DTO.
  *
  * @author <a href="mailto:marcofp@gmail.com">Marco Fuentelsaz</a>
  * @since 1.0.0
  */
-public class ItemBasket {
+public class ItemBasketDto {
+
+    private static final String DEFAULT_FINAL_PRICE = "0.0";
 
     /**
      * The good.
      */
-    private final Good good;
+    private final GoodDto good;
 
     /**
      * The number of items.
@@ -23,7 +23,7 @@ public class ItemBasket {
     /**
      * The final price.
      */
-    private BigDecimal finalPrice;
+    private String finalPrice = DEFAULT_FINAL_PRICE;
 
 
     /**
@@ -32,7 +32,7 @@ public class ItemBasket {
      * @param good the good.
      * @param quantity the quantity.
      */
-    public ItemBasket(final Good good, final int quantity) {
+    public ItemBasketDto(final GoodDto good, final int quantity) {
         this.good = good;
         this.quantity = quantity;
     }
@@ -42,7 +42,7 @@ public class ItemBasket {
      *
      * @return the good.
      */
-    public Good getGood() {
+    public GoodDto getGood() {
         return good;
     }
 
@@ -51,7 +51,7 @@ public class ItemBasket {
      *
      * @return the final price
      */
-    public BigDecimal getFinalPrice() {
+    public String getFinalPrice() {
         return finalPrice;
     }
 
@@ -60,7 +60,7 @@ public class ItemBasket {
      *
      * @param finalPrice the final price
      */
-    public void setFinalPrice(BigDecimal finalPrice) {
+    public void setFinalPrice(String finalPrice) {
         this.finalPrice = finalPrice;
     }
 

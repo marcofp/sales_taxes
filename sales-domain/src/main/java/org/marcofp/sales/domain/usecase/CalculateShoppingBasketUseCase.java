@@ -1,6 +1,6 @@
 package org.marcofp.sales.domain.usecase;
 
-import java.util.Set;
+import java.util.List;
 
 import org.marcofp.sales.domain.entity.ItemBasket;
 import org.marcofp.sales.domain.entity.ShoppingBasket;
@@ -13,11 +13,12 @@ import org.marcofp.sales.domain.entity.ShoppingBasket;
  */
 public interface CalculateShoppingBasketUseCase {
 
-   /**
-    * Calculates the shopping basket.
-    * @param items the items
-    * @return the shopping basket
-    */
-    ShoppingBasket calculateShoppingBasket(final Set<ItemBasket> items);
+    /**
+     * Calculates the shopping basket.
+     *
+     * @param items the items
+     * @return the shopping basket
+     */
+    ShoppingBasket calculateShoppingBasket(List<ItemBasket> items);
 
 }

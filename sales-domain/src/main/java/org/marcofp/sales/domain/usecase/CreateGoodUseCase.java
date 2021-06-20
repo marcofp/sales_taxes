@@ -1,6 +1,8 @@
 package org.marcofp.sales.domain.usecase;
 
 
+import java.math.BigDecimal;
+
 import org.marcofp.sales.domain.entity.Good;
 import org.marcofp.sales.domain.entity.GoodType;
 
@@ -21,6 +23,6 @@ public interface CreateGoodUseCase {
      * @param imported if the good is imported
      * @return the new good
      */
-    Good createGood(final String name, final Double price, final GoodType type, final Boolean imported);
+    Good createGood(final String name, final BigDecimal price, final GoodType type, final Boolean imported);
 
 }

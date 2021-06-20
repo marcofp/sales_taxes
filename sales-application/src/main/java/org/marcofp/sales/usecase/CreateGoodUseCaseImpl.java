@@ -1,5 +1,7 @@
 package org.marcofp.sales.usecase;
 
+import java.math.BigDecimal;
+
 import org.marcofp.sales.domain.entity.Good;
 import org.marcofp.sales.domain.entity.GoodType;
 import org.marcofp.sales.domain.repository.GoodRepository;
@@ -12,7 +14,6 @@ import org.marcofp.sales.domain.usecase.CreateGoodUseCase;
  * @since 1.0.0
  */
 public class CreateGoodUseCaseImpl implements CreateGoodUseCase {
-
 
     /**
      * The good repository.
@@ -32,7 +33,7 @@ public class CreateGoodUseCaseImpl implements CreateGoodUseCase {
      * {@inheritDoc}
      */
 
-    public Good createGood(final String name, final Double price, final GoodType type, final Boolean imported) {
+    public Good createGood(final String name, final BigDecimal price, final GoodType type, final Boolean imported) {
         return repository.createGood(name, price, type, imported);
     }
 

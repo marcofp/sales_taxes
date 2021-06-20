@@ -1,5 +1,6 @@
 package org.marcofp.sales.domain.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.marcofp.sales.domain.entity.Good;
@@ -41,7 +42,7 @@ public interface GoodRepository {
      * @param imported if the good is imported
      * @return the new good
      */
-    Good createGood(final String name, final Double price, final GoodType type, final Boolean imported);
+    Good createGood(final String name, final BigDecimal price, final GoodType type, final Boolean imported);
 
     /**
      * Modifies a good.
@@ -51,11 +52,11 @@ public interface GoodRepository {
     boolean modifyGood(final Good good);
 
     /**
-     * Finds a good by id.
-     * @param id the good id
+     * Finds a good by name.
+     * @param name the good name
      * @return the good
      */
-    Good findGood(String id);
+    Good findGood(String name);
 
     /**
      * Gets the total number of goods.
