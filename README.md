@@ -29,9 +29,9 @@ To run unit tests use:
 
 ### Usage
 
-```java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar <data-memory-repository-path> <input-data-path>```
+```java -jar sales-boot/target/sales-boot-1.0.0-jar-with-dependencies.jar data-memory-repository-path> <input-data-path>```
 
-- ```<data-memory-repository-path>```: path to the csv file that contains the data repository in memory. For each row the format is ```<item-name>, <item-price>, <item-type>, <is-imported>```. For example: book, 12.49, BOOKS, false
+- ```<data-memory-repository-path>```: path to the csv file that contains the data repository in memory. For each row the format is ```item-name, item-price, item-type, is-imported```. For example: book, 12.49, BOOKS, false
 
 - ```<input-data-path>```: path to the csv file that contains the input data. For each row the format is ```<item-name>, <item-quantity>```. For example: book, 1
 
